@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows;
+using System.Windows.Media;
 using YMM_ToneCurve.Extensions;
 using YMM_ToneCurve.Property;
 using YMM_ToneCurve.View.Command;
@@ -13,7 +15,7 @@ using YukkuriMovieMaker.Commons;
 
 namespace YMM_ToneCurve.ViewModel
 {
-    class ToneCurveParametersEditViewModel : Bindable
+    class ToneCurveParametersEditViewModel : Bindable, IDisposable
     {
         private ObservableCollection<ToneCurvePoint> rgbPoints = [new ToneCurvePoint(0.0F, 0.0F), new ToneCurvePoint(1.0F, 1.0F)];
         public ObservableCollection<ToneCurvePoint> RgbPoints
@@ -92,6 +94,11 @@ namespace YMM_ToneCurve.ViewModel
             PreviewPointCommand = new DelegateCommand(() => UpdateToItemProperty());
         }
 
+        public void Dispose()
+        {
+            ((INotifyPropertyChanged)TargetProperty.PropertyOwner).PropertyChanged -= PropertyItem_PropertyChanged;
+        }
+
         void UpdateToItemProperty()
         {
             TargetProperty.SetValue(new ToneCurveParameters(RgbPoints, RPoints, GPoints, BPoints, APoints));
@@ -105,11 +112,11 @@ namespace YMM_ToneCurve.ViewModel
                 return;
             }
 
-            RgbPoints = [.. parameters.Rgb.Points];
-            RPoints = [.. parameters.R.Points];
-            GPoints = [.. parameters.G.Points];
-            BPoints = [.. parameters.B.Points];
-            APoints = [.. parameters.A.Points];
+            RgbPoints = new ObservableCollection<ToneCurvePoint>(parameters.Rgb.Points.Select(p => new ToneCurvePoint(p.InValue, p.OutValue)));
+            RPoints = new ObservableCollection<ToneCurvePoint>(parameters.R.Points.Select(p => new ToneCurvePoint(p.InValue, p.OutValue)));
+            GPoints = new ObservableCollection<ToneCurvePoint>(parameters.G.Points.Select(p => new ToneCurvePoint(p.InValue, p.OutValue)));
+            BPoints = new ObservableCollection<ToneCurvePoint>(parameters.B.Points.Select(p => new ToneCurvePoint(p.InValue, p.OutValue)));
+            APoints = new ObservableCollection<ToneCurvePoint>(parameters.A.Points.Select(p => new ToneCurvePoint(p.InValue, p.OutValue)));
         }
 
         private void PropertyItem_PropertyChanged(object? sender, PropertyChangedEventArgs e)

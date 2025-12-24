@@ -63,6 +63,11 @@ namespace YMM_ToneCurve.View
 
         private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
+            if (e.OldValue is IDisposable oldVm)
+            {
+                oldVm.Dispose();
+            }
+
             if (e.OldValue == null && e.NewValue != null)
             {
                 ThemeManager.Instance.ThemeChanged += ThemeManager_ThemeChanged;

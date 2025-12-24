@@ -19,7 +19,7 @@ namespace YMM_ToneCurve
     {
         public const int MaxPointCount = 256;
 
-        static readonly byte[] ConstantUpdateBuffer = new byte[EffectParameter.Size];
+        readonly byte[] ConstantUpdateBuffer = new byte[EffectParameter.Size];
 
         public ToneCurveEffectImpl() : base(GetShader()) { }
 

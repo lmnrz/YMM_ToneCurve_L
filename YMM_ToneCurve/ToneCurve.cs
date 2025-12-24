@@ -13,13 +13,19 @@ using YukkuriMovieMaker.Plugin.Effects;
 
 namespace YMM_ToneCurve
 {
-    [VideoEffect("Tone Curve", ["加工"], [], IsAviUtlSupported = false)]
+    [VideoEffect("Tone Curve L", ["加工"], [], IsAviUtlSupported = false)]
     public class ToneCurve : VideoEffectBase
     {
-        public override string Label => "Tone Curve";
+        public override string Label => "Tone Curve L";
 
-        ToneCurveParameters parameters = ToneCurveParameters.Empty;
-        [Display(GroupName = "トーンカーブ", Description = "色調補正の量をグラフで調整します。編集するチャンネルはコンボボックスから変更できます")]
+        ToneCurveParameters parameters = new ToneCurveParameters(
+            [new ToneCurvePoint(0.0F, 0.0F), new ToneCurvePoint(1.0F, 1.0F)],
+            [new ToneCurvePoint(0.0F, 0.0F), new ToneCurvePoint(1.0F, 1.0F)],
+            [new ToneCurvePoint(0.0F, 0.0F), new ToneCurvePoint(1.0F, 1.0F)],
+            [new ToneCurvePoint(0.0F, 0.0F), new ToneCurvePoint(1.0F, 1.0F)],
+            [new ToneCurvePoint(0.0F, 0.0F), new ToneCurvePoint(1.0F, 1.0F)]
+        );
+        [Display(GroupName = "トーンカーブL", Description = "ToneCurveの改造版です。")]
         [ToneCurveParametersEditor(PropertyEditorSize = PropertyEditorSize.FullWidth)]
         public ToneCurveParameters Parameters
         {

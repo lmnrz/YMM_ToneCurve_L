@@ -34,8 +34,11 @@ namespace YMM_ToneCurve
 
         ToneCurve Item { get; }
 
+        IGraphicsDevicesAndContext Devices { get; }
+
         public ToneCurveProcessor(IGraphicsDevicesAndContext devices, ToneCurve toneCurve)
         {
+            Devices = devices;
             Item = toneCurve;
             RgbREffect = new ToneCurveCustomEffect(devices);
             RgbGEffect = new ToneCurveCustomEffect(devices);

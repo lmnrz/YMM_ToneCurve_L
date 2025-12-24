@@ -71,6 +71,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0" Margin="0,0,0,10">
@@ -88,6 +89,8 @@
                     <ComboBoxItem>A</ComboBoxItem>
                 </ComboBox>
             </Grid>
+            
+            <TextBlock Grid.Row="2" Text="{Binding DebugInfo}" Foreground="Red" TextWrapping="Wrap" Margin="0,5,0,0" IsHitTestVisible="False" Visibility="Collapsed"/>
 
             <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" Height="{Binding ElementName=Wrapper, Path=ActualWidth}" MaxHeight="300" d:Height="300">
                 <Grid ClipToBounds="True">
@@ -109,6 +112,8 @@
                         <Line Grid.Column="0" Grid.RowSpan="3" X1="0" Y1="0" X2="0" Y2="{Binding ElementName=BackgroundGrid, Path=ActualHeight}" HorizontalAlignment="Right" Style="{StaticResource BackgroundGridLineStyle}"/>
                         <Line Grid.Column="1" Grid.RowSpan="3" X1="0" Y1="0" X2="0" Y2="{Binding ElementName=BackgroundGrid, Path=ActualHeight}" HorizontalAlignment="Right" Style="{StaticResource BackgroundGridLineStyle}"/>
                     </Grid>
+
+                    <!-- <Polygon Points="{Binding HistogramPoints}" Fill="#40808080" Stretch="Fill" IsHitTestVisible="False"/> -->
 
                     <!-- display only -->
                     <local:ToneCurvePointEditView Points="{Binding APoints}" IsDashed="True" Visibility="{Binding EditingChannelIndex, Converter={StaticResource InvertedEqualToVisibilityConverter}, ConverterParameter={StaticResource Four}}" Style="{StaticResource BlackLineBackgroundToneCurvePointEditViewStyle}"/>

@@ -13,7 +13,11 @@ namespace YMM_ToneCurve.View.Command
 
         Func<bool> CanExecuteBody { get; }
 
-        public event EventHandler? CanExecuteChanged;
+        public event EventHandler? CanExecuteChanged
+        {
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
+        }
 
         public DelegateCommand(Action executeBody) : this(executeBody, () => true) { }
 
